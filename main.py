@@ -4,19 +4,24 @@ from tkinter import *
 from tkinter import ttk,messagebox,Tk
 # основная функция генерирования пароля
 def generate_password(): 
-    password = ''.join(secrets.choice(all_chars) for _ in range(length)) # сам пароль
     length = int(scale.get()) # длина пароля,беря значение из ползунка
+
     available_sets = {
         'digits': string.digits if enabled.get() else '',
         'letters': string.ascii_letters if enabled2.get() else '',
         'punctuation': string.punctuation if enabled1.get() else ''
     }
+
     digit = available_sets["digits"]
     letters = available_sets["letters"]
     punctuations = available_sets["punctuation"]
     all_chars = digit+letters+punctuations # общий набор
+
     if all_chars == "":
         all_chars = string.ascii_letters + string.digits
+
+
+    password = ''.join(secrets.choice(all_chars) for _ in range(length)) # сам пароль
     password_entry.delete(0, 'end') # удаление
     password_entry.insert(0, password) # вставление-
 # функция для копирования
@@ -62,12 +67,12 @@ enabled2_checkbutton.pack(padx=8, pady=8, anchor=NW)
 password_entry = ttk.Entry(root, width =40, font=("Arial", 12))
 password_entry.pack(pady=20)
 
-# кнопка сгенерировать
+# кнопка сгенерироватьgenerate_btn = ttk.Button(root, text="Сгенерировать пароль",
 generate_btn = ttk.Button(root, text="Сгенерировать пароль",
                           command=generate_password)
 generate_btn.pack(pady=10)
 
-# кнопка скопировать
+    # кнопка скопировать
 append_btn = ttk.Button(root, text="Скопировать",
                         command=append)
 append_btn.pack(pady=11)
